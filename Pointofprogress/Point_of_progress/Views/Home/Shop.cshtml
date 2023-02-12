@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+     ViewData["Title"] = "Магазин";
+}
+@model Point_of_progress.Models.ShopPage
+@foreach(var item in Model.Items)
+{
+    <div class="task" style="width: 50%;  margin-left:auto; margin-right:auto;">
+            <div style="display:inline-block;"><label class="texttaskT" style="display:inline-block;"> @item.name <span style="color:#696969"> Цена:</span> <span style="color:#FF00FF">  @item.price</span></label></div>
+           <div style="display:inline-block;"> <button class="button"  value="купить" style="height:40px;background: #269E3A;">Купить</button> </div>
+        </div>
+}

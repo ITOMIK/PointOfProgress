@@ -1,0 +1,25 @@
+﻿@*
+   
+*@
+@{
+    ViewData["Title"] = "Рейтинг";
+    int i = 0;
+    int j = 0;
+}
+@model Point_of_progress.Models.RaitingPage
+
+<form style="width:50%; margin-right:auto; margin:30px;display:inline-block;"> 
+    <header class="Title">Рейтинг</header>
+    @foreach(var item in Model.UserList)
+    {
+        i=i+1;
+        <div class="task" style="width: 80%;  margin-left:auto; margin-right:auto;">
+            <label class="texttaskT" ><span style="color:#696969;">@i</span> @item.name <span style="color:#FF00FF">@item.balance</span></label>@{
+                if(item.name==Model.name) { j = i; }
+            }
+        </div>
+    }
+</form>
+     <div style="display:inline-block; height:300px"><header class="Title" >@Model.name Место: <span style="color:#FF00FF">@j из @i </span> </header>
+         <br><br><br><br><br><br><br><br><br>
+         </div>

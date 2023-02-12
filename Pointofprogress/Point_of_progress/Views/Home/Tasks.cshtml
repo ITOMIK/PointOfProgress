@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Задачи";
+}
+@model Point_of_progress.Models.TasksPage
+@{
+    string getnameofemploe(int id)
+    {
+        string name = "Сотрудник остувует";
+        foreach(var item in Model.UserList)
+        {
+            if (item.id == id)
+            {
+                name = item.name;
+            }
+        }
+        return " "+name;
+    }
+}
+@{
+    int i = 0;
+}
+@if (Model.isregistrated)
+{
+   
+    @foreach(var item in Model.TaskList.OrderByDescending(x=> x.date))
+    {
+            i+=1;
+            
+        <div class="task" style="width: 50%;  margin-left:auto; margin-right:auto; align-items: center;">
+            <label class="texttaskT" >@item.name</label>
+              <label class="texttask">Сотрудник: @getnameofemploe(item.userid)</label>
+              @if(i%2==0){<span class="texttaskdatar" style="float:left;" >@item.date <span class="texttask" style="float:left; margin-right:5px;">Дедлайн:   </span> </span>}
+              else{<span class="texttaskdatag" style="float:left;">@item.date <span class="texttask" style="float:left; margin-right:5px;">Дедлайн:   </span> </span>} 
+            <label class="texttask">@item.comments</label>
+        </div>
+        <br>
+
+     
+    }
+    @if (Model.role == "Admin")
+    {
+         <form asp-action="AddNewTask" asp-controller="Home" class="form" style="max-width:50%;  margin-left:auto; margin-right:auto;">       
+         <header class="Title">Добавить задание</header>
+            <label class="text">Название<br><input type="text" name="name" value="" class="input" /></label><br><br>
+            <label class="text">Комментарий<br><input type="text" name="comments" value="" class="input" /></label><br><br>
+            
+            <label class="text">Сотрудник<br>
+                <select name="userid" class="input">
+                    <option value="all"> Все</option>
+                @foreach(var item in Model.UserList)
+                {
+                    <option value="@item.id"> @item.name</option>
+                }
+
+                </select>
+                </label><br><br><br><br>
+            <label class="text">Дата<br><input type="date" name="date" value="" class="input" /></label><br><br><br><br>
+           <input type="submit" value="Добавить" class="button2" sstyle="font-size: 15px;"/><br><br> 
+       </form>
+    }
+}
+else{
+   
+      <div class="formdiv">
+   <form asp-action="LogIn" asp-controller="Home" class="form" >
+        <header class="Title">Войдите</header>
+    <br><br>
+        <br><br>
+        <label class="text">Логин<br><input type="text" name="login" value="" class="input" /></label><br><br>
+        <br><br><br>
+        <label class="text">Пароль<br><input type="password" name="password" value="" class="input" /></label><br><br><br><br>
+        <input type="submit"  value="Войти" class="button" /><br><br>
+        </form>
+</div>
+ 
+    <div class="formdiv">
+         
+       <br><br>
+            <br><br>
+            
+             <form asp-action="AddNewUser" asp-controller="Home" class="form">
+                 <header class="Title">Или зарегистрирйтесь</header>
+            <label class="text">Имя<br><input type="text" name="name" value="" class="input" /></label><br><br>
+            <label class="text">Логин<br><input type="text" name="login" value="" class="input" /></label><br><br>
+            
+            <label class="text">Пароль<br><input type="password" name="password" value="" class="input" /></label><br><br><br><br>
+            <label class="text">Код Компании<br><input type="number" name="companyid" value="" class="input" /></label><br><br><br><br>
+           <input type="submit" value="Зарегестривоваться" class="button2" /><br><br>
+           </form>
+       </div>
+}

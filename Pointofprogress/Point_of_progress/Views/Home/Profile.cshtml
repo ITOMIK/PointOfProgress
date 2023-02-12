@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Профиль";
+
+}
+@model Point_of_progress.Models.ProfilePage
+@{
+     string GetCompanyName(int id)
+    {
+        string name = "Компания отстутвует";
+        foreach(var item in Model.CompanyList)
+        {
+            if (item.id == id)
+            {
+                name = item.name;
+            }
+        }
+        return name;
+    }
+}
+@if (@Model.isreg)
+{
+
+
+<div> 
+<header class="BigTitle" style="text-align:right; display:inline-block;" > @Model.name </header>
+<div style="display:inline-block; margin-top: 0px"><form asp-action="LogOut" asp-controller="Home" style="border: 0px solid #FFFFFF; right:0; ">
+        <input type="submit" class="linkbutton" value="Выйти" style="max-width:100px; " />
+    </form></div>
+<br>
+<div style="margin:20px">
+<label class="Title"> <label class="Title"> Логин:</label> @Model.login</label>
+<br>
+<label class="Title" style="color:#FF00FF "><label class="Title"> Должность:</label> @Model.role </label> <span></span>
+<br> <label class="Title" ><label class="Title"> Компания:</label> @GetCompanyName(Model.companyid)</label> </div>
+</div>
+}
+else{
+ <div class="formdiv">
+   <form asp-action="LogIn" asp-controller="Home" class="form" >
+        <header class="Title">Войдите</header>
+    <br><br>
+        <br><br>
+        <label class="text">Логин<br><input type="text" name="login" value="" class="input" /></label><br><br>
+        <br><br><br>
+        <label class="text">Пароль<br><input type="password" name="password" value="" class="input" /></label><br><br><br><br>
+        <input type="submit"  value="Войти" class="button" /><br><br>
+        </form>
+</div>
+ 
+    <div class="formdiv">
+         
+       <br><br>
+            <br><br>
+            
+             <form asp-action="AddNewUser" asp-controller="Home" class="form">
+                 <header class="Title">Или зарегистрирйтесь</header>
+            <label class="text">Имя<br><input type="text" name="name" value="" class="input" /></label><br><br>
+            <label class="text">Логин<br><input type="text" name="login" value="" class="input" /></label><br><br>
+            
+            <label class="text">Пароль<br><input type="password" name="password" value="" class="input" /></label><br><br><br><br>
+            <label class="text">Код Компании<br><input type="number" name="companyid" value="" class="input" /></label><br><br><br><br>
+           <input type="submit" value="Зарегестривоваться" class="button2" /><br><br>
+           </form>
+       </div>
+}
+
